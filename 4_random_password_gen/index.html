@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate a <br><span>Random Password</span></h1>
+        
+        <label class="label" for="quantity">Length between 6 and 20 </label>
+        <input class="lengthValue" type="number" id="quantity" name="quantity" min="6" max="20">
+
+        <div class="display">
+            <input type="text" id="password" placeholder="Password">
+            <img src="images/copy.png" onclick={copyPassword()}>
+        </div>
+        
+        <button onclick={createPassword()}>
+            <img src="images/generate.png" > Generate Password</button>
+    </div>
+
+
+<script>
+    
+    const passwordBox  = document.getElementById("password");
+    let length  = document.getElementById("quantity").value;
+    // const length = 12;
+
+    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    const number = "0123456789";
+    const symbols = "@#$%&*_+|.?-=!";
+
+    const allChars = upperCase + lowerCase + number + symbols;
+
+    const createPassword = () => {
+        
+        length  = document.getElementById("quantity").value;
+        
+        console.log("sdf" + length)
+
+        if(length < 6) {
+            alert("Min length is 6")
+            return null;
+        }else if(length > 20) {
+            alert("maximum length is 20")
+            return null;
+        }
+        let password = "";
+        password += allChars[Math.floor(Math.random() * allChars.length)];
+        password += upperCase[Math.floor(Math.random() * upperCase.length)];
+        password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+        password += number[Math.floor(Math.random() * number.length)];
+        password += symbols[Math.floor(Math.random() * symbols.length)];
+
+        while(length > password.length){
+        password += allChars[Math.floor(Math.random() * allChars.length)];
+        }
+    
+        passwordBox.value = password;
+    }
+
+    const copyPassword = () => {
+        passwordBox.select();
+        document.execCommand("copy");
+    }
+    
+
+
+</script> 
+</body>
+</html>
