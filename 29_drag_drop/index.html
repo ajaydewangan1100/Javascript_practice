@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="text change" id="text">Drag and Drop</div>
+        <div id="left">
+            <div class="list " draggable="true"><img src="" alt="">List Item 1</div>
+            <div class="list " draggable="true"><img src="" alt="">List Item 2</div>
+            <div class="list " draggable="true"><img src="" alt="">List Item 3</div>
+            <div class="list " draggable="true"><img src="" alt="">List Item 4</div>
+        </div>
+        <div id="right"></div>
+    </div>
+
+<script>
+    let lists = document.getElementsByClassName("list");
+    const text = document.getElementById("text");
+
+    let leftBox = document.getElementById("left");
+    let rightBox = document.getElementById("right");
+
+    for (list of lists) {
+        list.addEventListener("dragstart", (e) => {
+            let selected = e.target;
+
+
+            rightBox.addEventListener("dragover", (e) => {
+                e.preventDefault();
+            })
+
+            rightBox.addEventListener("drop", (e) => {
+                rightBox.appendChild(selected);
+                if(rightBox.getElementsByTagName('*').length === 8) {
+                    rightBox.classList.add("done");
+                    text.classList.add("change");
+                }else {
+                    leftBox.classList.remove("done");
+                    rightBox.classList.remove("done");
+                    text.classList.remove("change");
+                };
+                selected = null;
+            })
+
+            leftBox.addEventListener("dragover", (e) => {
+                e.preventDefault();
+            })
+
+            leftBox.addEventListener("drop", (e) => {
+                leftBox.appendChild(selected);
+                if(leftBox.getElementsByTagName('*').length === 8) {
+                    leftBox.classList.add("done");
+                    text.classList.add("change");
+                }else {
+                    rightBox.classList.remove("done");
+                    leftBox.classList.remove("done");
+                    text.classList.remove("change");
+                };
+                selected = null;
+            })
+
+        })
+    }
+
+</script>
+    
+</body>
+</html>
